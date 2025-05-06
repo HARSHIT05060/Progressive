@@ -34,6 +34,9 @@ import logo from '../assets/images/logo1.png';
 import camera1 from '../assets/images/camera1.png';
 import camera2 from '../assets/images/camera2.png';
 import camera3 from '../assets/images/camera3.png';
+import camera4 from '../assets/images/camera4.jpg';
+import camera5 from '../assets/images/camera5.jpg';
+import poster from '../assets/images/poster.jpg';
 import installation1 from '../assets/images/installation1.jpg';
 import video1 from '../assets/Videos/video1.mp4';
 import { Grid } from '@mui/material';
@@ -606,7 +609,7 @@ const Home = (props) => {
                             width="100%"
                             height="auto"
                             controls
-                            poster="/api/placeholder/800/450"
+                            poster={poster}
                             style={{ display: 'block' }}
                         >
                             <source src={video1} type="video/mp4" />
@@ -744,7 +747,7 @@ const Home = (props) => {
                         <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
                             <Box
                                 component="img"
-                                src={camera1}
+                                src={camera5}
                                 alt="Face detection camera"
                                 sx={{
                                     width: { xs: '80%', sm: '60%', md: '70%' },
@@ -755,7 +758,7 @@ const Home = (props) => {
                             />
                         </Grid>
                     </Grid>
-<hr style={{marginBottom:50}}/>
+                    <hr style={{ marginBottom: 50 }} />
                     {/* Section 2 - Image Left, Text Right */}
                     <Grid
                         container
@@ -770,7 +773,7 @@ const Home = (props) => {
                         <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
                             <Box
                                 component="img"
-                                src={camera2}
+                                src={camera4}
                                 alt="Motion detection view"
                                 sx={{
                                     width: { xs: '80%', sm: '60%', md: '70%' },
