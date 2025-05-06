@@ -4,7 +4,6 @@ import {
     Toolbar,
     Button,
     Container,
-    Grid,
     Card,
     CardContent,
     Box,
@@ -19,6 +18,8 @@ import {
     Fab,
     useMediaQuery
 } from '@mui/material';
+import React from 'react';
+
 import { useTheme } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
@@ -28,7 +29,6 @@ import SendIcon from '@mui/icons-material/Send';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import { ArrowRight, Phone, Mail, ShieldCheck, Wifi } from 'lucide-react';
 import { keyframes } from '@emotion/react';
-
 // Import assets
 import logo from '../assets/images/logo1.png';
 import camera1 from '../assets/images/camera1.png';
@@ -36,7 +36,7 @@ import camera2 from '../assets/images/camera2.png';
 import camera3 from '../assets/images/camera3.png';
 import installation1 from '../assets/images/installation1.jpg';
 import video1 from '../assets/Videos/video1.mp4';
-
+import { Grid } from '@mui/material';
 // Animation keyframes
 const fadeIn = keyframes`
   from {
@@ -60,14 +60,8 @@ const slideIn = keyframes`
   }
 `;
 
-// Define types for the ScrollTop component props
-interface ScrollTopProps {
-  children: React.ReactElement;
-  window?: () => Window;
-}
-
 // Scroll to top component
-function ScrollTop(props: ScrollTopProps) {
+function ScrollTop(props) {
     const { children, window } = props;
     const trigger = useScrollTrigger({
         target: window ? window() : undefined,
@@ -75,10 +69,11 @@ function ScrollTop(props: ScrollTopProps) {
         threshold: 100,
     });
 
-    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
-        const anchor = (event.target.ownerDocument || document).querySelector(
-            '#back-to-top-anchor'
-        );
+    const handleClick = (event) => {
+        const target = event.target;
+
+        // Ensuring that the target has a valid ownerDocument and fallback
+        const anchor = target.ownerDocument?.querySelector('#back-to-top-anchor') || document.querySelector('#back-to-top-anchor');
 
         if (anchor) {
             anchor.scrollIntoView({
@@ -101,17 +96,12 @@ function ScrollTop(props: ScrollTopProps) {
     );
 }
 
-// Define Home component props (if needed)
-interface HomeProps {
-  // Add any specific props if needed
-}
 
-export default function Home(props: HomeProps) {
+const Home = (props)=> {
     const [currentImage, setCurrentImage] = useState(0);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-    // const isXS = useMediaQuery(theme.breakpoints.down('sm'));
     const images = [camera1, camera2, camera3];
 
     // Image carousel effect
@@ -122,10 +112,10 @@ export default function Home(props: HomeProps) {
         return () => clearInterval(interval);
     }, [images.length]);
 
-    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+    const toggleDrawer = (open) => (event) => {
         if (
             event.type === 'keydown' &&
-            ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
+            ((event.key === 'Tab') || (event.key === 'Shift'))
         ) {
             return;
         }
@@ -157,7 +147,6 @@ export default function Home(props: HomeProps) {
                             <Box component="img" src={logo} alt="logo" sx={{ width: { xs: 40, sm: 50 }, mr: 1 }} />
                             <Typography
                                 variant={isMobile ? "subtitle1" : "h6"}
-                                component="div"
                                 sx={{
                                     color: '#ff6f00',
                                     fontWeight: 'bold',
@@ -1066,3 +1055,5 @@ export default function Home(props: HomeProps) {
         </Box>
     );
 }
+
+export default Home;

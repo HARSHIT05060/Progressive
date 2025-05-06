@@ -55,6 +55,7 @@ function App() {
       <CssBaseline />
       <Home />
     </ThemeProvider>
+
   );
 }
 
