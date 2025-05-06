@@ -60,8 +60,14 @@ const slideIn = keyframes`
   }
 `;
 
+// Define types for the ScrollTop component props
+interface ScrollTopProps {
+  children: React.ReactElement;
+  window?: () => Window;
+}
+
 // Scroll to top component
-function ScrollTop(props) {
+function ScrollTop(props: ScrollTopProps) {
     const { children, window } = props;
     const trigger = useScrollTrigger({
         target: window ? window() : undefined,
@@ -69,7 +75,7 @@ function ScrollTop(props) {
         threshold: 100,
     });
 
-    const handleClick = (event) => {
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const anchor = (event.target.ownerDocument || document).querySelector(
             '#back-to-top-anchor'
         );
@@ -95,7 +101,12 @@ function ScrollTop(props) {
     );
 }
 
-export default function Home(props) {
+// Define Home component props (if needed)
+interface HomeProps {
+  // Add any specific props if needed
+}
+
+export default function Home(props: HomeProps) {
     const [currentImage, setCurrentImage] = useState(0);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const theme = useTheme();
@@ -111,10 +122,10 @@ export default function Home(props) {
         return () => clearInterval(interval);
     }, [images.length]);
 
-    const toggleDrawer = (open) => (event) => {
+    const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
         if (
             event.type === 'keydown' &&
-            (event.key === 'Tab' || event.key === 'Shift')
+            ((event as React.KeyboardEvent).key === 'Tab' || (event as React.KeyboardEvent).key === 'Shift')
         ) {
             return;
         }
@@ -220,7 +231,6 @@ export default function Home(props) {
                     <List>
                         {menuItems.map((item) => (
                             <ListItem
-
                                 key={item.name}
                                 component="a"
                                 href={item.path}
@@ -752,7 +762,6 @@ export default function Home(props) {
                         </Grid>
                     </Grid>
 
-                    {/* Section 2 - Image Left, Text Right */}
                     {/* Section 2 - Image Left, Text Right - Restructured with image first in markup */}
                     <Grid
                         container
@@ -769,7 +778,7 @@ export default function Home(props) {
                                 src={camera2}
                                 alt="Motion detection view"
                                 sx={{
-                                    width: { xs: '70%', sm: '60%', md: '60%' },
+                                    width: { xs: '70%', sm: '60%', md: '70%' },
                                     borderRadius: 2,
                                     boxShadow: 3
                                 }}
