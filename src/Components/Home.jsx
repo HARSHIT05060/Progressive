@@ -97,7 +97,7 @@ function ScrollTop(props) {
 }
 
 
-const Home = (props)=> {
+const Home = (props) => {
     const [currentImage, setCurrentImage] = useState(0);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const theme = useTheme();
@@ -240,7 +240,7 @@ const Home = (props)=> {
                         position: 'relative',
                     }}
                 >
-                    {/* Left Section */}
+                    {/* Left Section - Unchanged */}
                     <Grid
                         item
                         xs={12}
@@ -311,22 +311,23 @@ const Home = (props)=> {
                         </Button>
                     </Grid>
 
-                    {/* Right Section (Image + Orange BG) */}
+                    {/* Right Section (Image + Orange BG) - Modified for better mobile responsiveness */}
                     <Grid
                         item
                         xs={12}
                         md={6}
                         sx={{
                             position: 'relative',
-                            height: '92vh', // Using your preferred 92vh height
+                            height: { xs: '50vh', sm: '60vh', md: '92vh' }, // Reduced height on mobile
                             display: 'flex',
-                            justifyContent: 'flex-end',
+                            justifyContent: { xs: 'center', md: 'flex-end' }, // Center on mobile, flex-end on desktop
                             alignItems: 'center',
                             overflow: 'hidden',
                             width: '100%',
                             maxWidth: { md: '50%' },
                             zIndex: 10,
-                            right: -87,
+                            right: { xs: 0, md: -87 }, // No right offset on mobile
+                            mt: { xs: 4, md: 0 }, // Add margin top on mobile for spacing
                         }}
                     >
                         {/* Orange Background */}
@@ -361,7 +362,7 @@ const Home = (props)=> {
                                 src={images[currentImage]}
                                 alt={`Camera ${currentImage + 1}`}
                                 sx={{
-                                    width: { xs: '220px', sm: '280px', md: '320px' },
+                                    width: { xs: '200px', sm: '280px', md: '320px' },
                                     height: 'auto',
                                     objectFit: 'contain',
                                     filter: 'drop-shadow(5px 5px 10px rgba(0,0,0,0.2))',
@@ -370,16 +371,20 @@ const Home = (props)=> {
                             />
                         </Box>
 
-                        {/* Dot Indicators */}
+                        {/* Dot Indicators - Modified to appear at bottom on mobile */}
                         <Box
                             sx={{
                                 position: 'absolute',
-                                right: 20,
-                                top: '50%',
-                                display: { xs: 'none', md: 'flex' },
-                                flexDirection: 'column',
+                                right: { xs: '50%', md: 20 },
+                                bottom: { xs: 20, md: 'auto' },
+                                top: { xs: 'auto', md: '50%' },
+                                display: 'flex',
+                                flexDirection: { xs: 'row', md: 'column' },
                                 gap: 2,
-                                transform: 'translateY(-50%)',
+                                transform: {
+                                    xs: 'translateX(50%)',
+                                    md: 'translateY(-50%)'
+                                },
                                 zIndex: 3,
                             }}
                         >
@@ -400,7 +405,6 @@ const Home = (props)=> {
                             ))}
                         </Box>
                     </Grid>
-
                 </Grid>
             </Container>
 
@@ -639,11 +643,11 @@ const Home = (props)=> {
                         alignItems="center"
                         sx={{
                             mb: { xs: 6, md: 10 },
-                            flexDirection: { xs: 'column-reverse', md: 'row' }
+                            flexDirection: { xs: 'column', md: 'row' }
                         }}
                     >
                         {/* Text */}
-                        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'center', md: 'flex-start' } }}>
                             <div>
                                 <Typography
                                     variant="h4"
@@ -664,7 +668,7 @@ const Home = (props)=> {
                                         textAlign: { xs: 'center', md: 'left' }
                                     }}
                                 >
-                                    Never miss an important visitor with our AI-powered face recognition technology.
+                                    Never miss an important visitor with our AI-powered face recognition <br /> technology.
                                 </Typography>
 
                                 <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -734,47 +738,50 @@ const Home = (props)=> {
                                     </Button>
                                 </Box>
                             </div>
-                            <div>
-                                <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
-                                    <Box
-                                        component="img"
-                                        src={camera1}
-                                        alt="Face detection camera"
-                                        sx={{
-                                            width: { xs: '70%', sm: '60%', md: '80%' },
-                                            borderRadius: 2,
-                                            boxShadow: 3
-                                        }}
-                                    />
-                                </Grid>
-                            </div>
+                        </Grid>
+
+                        {/* Image */}
+                        <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
+                            <Box
+                                component="img"
+                                src={camera1}
+                                alt="Face detection camera"
+                                sx={{
+                                    width: { xs: '80%', sm: '60%', md: '70%' },
+                                    maxWidth: { xs: '280px', sm: 'none', md: 'none' },
+                                    borderRadius: 2,
+                                    boxShadow: 3
+                                }}
+                            />
                         </Grid>
                     </Grid>
-
-                    {/* Section 2 - Image Left, Text Right - Restructured with image first in markup */}
+<hr style={{marginBottom:50}}/>
+                    {/* Section 2 - Image Left, Text Right */}
                     <Grid
                         container
                         spacing={{ xs: 4, md: 6 }}
                         alignItems="center"
                         sx={{
-                            mb: { xs: 6, md: 10 }
+                            mb: { xs: 6, md: 10 },
+                            flexDirection: { xs: 'column', md: 'row' }
                         }}
                     >
-                        {/* Image - Now first in the markup */}
+                        {/* Image - First in markup for both mobile and desktop */}
                         <Grid item xs={12} md={6} sx={{ textAlign: 'center' }}>
                             <Box
                                 component="img"
                                 src={camera2}
                                 alt="Motion detection view"
                                 sx={{
-                                    width: { xs: '70%', sm: '60%', md: '70%' },
+                                    width: { xs: '80%', sm: '60%', md: '70%' },
+                                    maxWidth: { xs: '280px', sm: 'none', md: 'none' },
                                     borderRadius: 2,
                                     boxShadow: 3
                                 }}
                             />
                         </Grid>
 
-                        {/* Text - Now second in the markup */}
+                        {/* Text - Second in markup for both mobile and desktop */}
                         <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center' }}>
                             <div>
                                 <Typography
@@ -796,7 +803,7 @@ const Home = (props)=> {
                                         textAlign: { xs: 'center', md: 'left' }
                                     }}
                                 >
-                                    With built-in human detection tech, the camera alerts you when a person  <br /> is detected.
+                                    With built-in human detection tech, the camera alerts you when a person <br /> is detected.
                                 </Typography>
 
                                 <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -845,7 +852,7 @@ const Home = (props)=> {
                                         textAlign: { xs: 'center', md: 'left' }
                                     }}
                                 >
-                                    AI-powered human detection is more accurate than traditional motion <br />  sensors,
+                                    AI-powered human detection is more accurate than traditional motion <br /> sensors,
                                     reducing false alarms by up to 95%.
                                 </Typography>
 
