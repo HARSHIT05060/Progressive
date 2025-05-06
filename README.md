@@ -2,7 +2,7 @@
 A modern digital presence for CCTV services, built for performance, responsiveness, and reliability.
 
 📱 Live Demo
-Frontend: https://progressivecctv.vercel.app (update with your actual link)
+Frontend: progressive-delta.vercel.app
 
 🎯 Overview
 Progressive CCTV is a business website designed to showcase surveillance solutions, promote security services, and allow customers to easily connect with a trusted provider. The website is optimized for SEO, user engagement, and scalable growth.
